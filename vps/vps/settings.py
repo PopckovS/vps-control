@@ -11,9 +11,18 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# ====================================
+# НАСТРОЙКА ПЕРЕМЕННЫХ ОКРУЖЕНИЯ
+# ====================================
+env = environ.Env()
+env_file = os.path.join(str(BASE_DIR), '.env')
+env.read_env(env_file)
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,9 +32,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hh5+_&b)3n=r67=a#068b6%scod@n0=@sbf392ncm!795bbrag'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list(
+    'DJANGO_ALLOWED_HOSTS', default=['127.0.0.1', '0.0.0.0', 'localhost']
+)
 
 
 # Application definition
@@ -40,8 +51,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Установленные приложения
+    # Установленные приложения DRF и фильтрации для него
     'rest_framework',
+    'django_filters',
+
+    # CORS
+    'corsheaders',
 
     # API для управления VPS
     'api_vps.apps.ApiVpsConfig'
@@ -50,6 +65,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -82,10 +98,7 @@ WSGI_APPLICATION = 'vps.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': env.db_url()
 }
 
 
@@ -131,3 +144,17 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# ==========================================
+# НАСТРОЙКИ: DJANGO REST FRAMEWORK, FILTER
+# ==========================================
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
+
+
+# ==========================================
+# НАСТРОЙКИ: CORS
+# ==========================================
+CORS_ORIGIN_ALLOW_ALL = env.bool('CORS_ORIGIN_ALLOW_ALL')

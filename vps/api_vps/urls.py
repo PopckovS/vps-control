@@ -1,7 +1,8 @@
 from django.urls import path, include
-from .views import VpsList, VpsOne
+from .views import VpsGetListOrCreate, VpsGetOne, VpsUpdateOne
 
 urlpatterns = [
-     path('vps', VpsList.as_view(), name='vps_list'),
-     path('vps/<int:pk>', VpsOne.as_view(), name='vps_one'),
+     path('vps', VpsGetListOrCreate.as_view(), name='vps_get_list_or_create_one'),
+     path('vps/get/<str:uid>', VpsGetOne.as_view(), name='vps_get_one'),
+     path('vps/update/<str:uid>', VpsUpdateOne.as_view(), name='vps_update_one'),
 ]
