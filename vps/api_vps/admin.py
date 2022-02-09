@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import VpsModel
 
-# Register your models here.
+# регистрируем модель VPS в админке
+admin.site.register(VpsModel)

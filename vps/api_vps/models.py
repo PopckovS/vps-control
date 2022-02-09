@@ -2,16 +2,22 @@ from django.db import models
 from django.urls import reverse
 import uuid
 
-
 """
 Модели для REST-API что бы управлять VPS 
 """
 
 
+class VpsStatusType(models.TextChoices):
+    """ Выбор статуса для сервиса VPS """
+    STARTED = ('started', 'started')
+    BLOCKED = ('blocked', 'blocked')
+    STOPPED = ('stopped', 'stopped')
+
+
 class VpsModel(models.Model):
     """ Объект VPS для управления виртуальными серверами """
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    uid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     cpu = models.SmallIntegerField(null=False, blank=False, verbose_name='Количество ядер')
 
@@ -19,23 +25,23 @@ class VpsModel(models.Model):
 
     hdd = models.SmallIntegerField(null=False, blank=False, verbose_name='Объем hdd')
 
-    status = models.BooleanField(default=True, verbose_name='Публиковать да/нет ?')
+    status = models.CharField(max_length=10,
+                              choices=VpsStatusType.choices,
+                              default=VpsStatusType.STOPPED,
+                              verbose_name='Статус сервера'
+                              )
 
-    create_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    create_date = models.DateTimeField(auto_now_add=True, blank=True, null=True,
+                                       verbose_name='Дата создания', editable=False
+                                       )
 
     update_date = models.DateTimeField(auto_now=True, null=True, verbose_name='Дата обновления')
 
-    soft_delete = models.BooleanField(default=False, verbose_name='Мягкое удаление')
-
     class Meta:
         ordering = ('create_date',)
-        # db_table = 'blog_commentary'
+        db_table = 'api_vps'
         verbose_name = 'Объект VPS'
         verbose_name_plural = 'Объекты VPS'
 
     def __str__(self):
         return str(self.pk)
-
-    def get_absolute_url(self):
-        """Возвращает абсолютный путь к конкретному объекту модели по ее pk"""
-        return reverse('blog_one_post', kwargs={'post_id': self.pk})
