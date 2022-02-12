@@ -1,0 +1,36 @@
+version: '3.5'
+services:
+
+
+  # Django приложение с API внутри
+  api_vps:
+    build:
+      context: ./vps
+      dockerfile: Dockerfile
+      network: host
+  container_name: api_vps
+    restart: always
+    volumes:
+      - ./vps:/usr/src/app
+    ports:
+      - "9200:8000"
+    depends_on:
+      - vps_postgres
+    env_file:
+      - ./vps/.env
+
+
+  # Postgres для Django API
+  vps_postgres:
+    image: postgres
+    container_name: vps_postgres
+    restart: always
+    ports:
+      - "9201:5432"
+    volumes:
+      - ./vps_postgres/data:/var/lib/postgresql/data
+    env_file:
+      - ./vps_postgres/.env
+
+
+
