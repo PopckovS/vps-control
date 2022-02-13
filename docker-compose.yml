@@ -1,36 +1,60 @@
-version: '3.5'
+version: '3.6'
 services:
 
-
-  # Django приложение с API внутри
-  api_vps:
-    build:
-      context: ./vps
-      dockerfile: Dockerfile
-      network: host
-  container_name: api_vps
-    restart: always
-    volumes:
-      - ./vps:/usr/src/app
-    ports:
-      - "9200:8000"
-    depends_on:
-      - vps_postgres
-    env_file:
-      - ./vps/.env
-
-
-  # Postgres для Django API
-  vps_postgres:
-    image: postgres
-    container_name: vps_postgres
-    restart: always
-    ports:
-      - "9201:5432"
-    volumes:
-      - ./vps_postgres/data:/var/lib/postgresql/data
-    env_file:
-      - ./vps_postgres/.env
+    # Django приложение с API внутри
+    api_vps:
+      build:
+        context: ./vps
+        dockerfile: Dockerfile
+        network: host
+      container_name: api_vps
+      restart: always
+      volumes:
+        - ./vps:/usr/src/app
+      ports:
+        - "9500:8000"
+      depends_on:
+        - vps_postgres
+      env_file:
+        - ./vps/.env
 
 
+    # Postgres для Django API
+    vps_postgres:
+      image: postgres
+      container_name: vps_postgres
+      restart: always
+      ports:
+        - "9501:5432"
+      volumes:
+        - ./vps_postgres/data:/var/lib/postgresql/data
+      env_file:
+        - ./vps_postgres/.env
 
+
+   # Hasura приложение
+    graphql-engine:
+      image: hasura/graphql-engine:v2.1.1
+      ports:
+        - "9502:8080"
+      depends_on:
+        - postgres_hasura
+      restart: always
+      environment:
+        HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:123@postgres_hasura:5432/hasura
+        PG_DATABASE_URL: postgres://postgres:123@postgres_hasura:5432/hasura
+        HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+        HASURA_GRAPHQL_DEV_MODE: "true"
+        HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+
+
+    # Postgres для Hasura приложения
+    postgres_hasura:
+      image: postgres:12
+      restart: always
+      volumes:
+        - ./postgres_hasura/data:/var/lib/postgresql/data
+      ports:
+        - "9503:5432"
+      env_file:
+        - ./postgres_hasura/.env
