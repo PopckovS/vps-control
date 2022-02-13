@@ -1,0 +1,106 @@
+[
+{
+  "model": "api_vps.vpsmodel",
+  "pk": 1,
+  "fields": {
+    "uid": "21c75906-7e3c-489c-aaeb-ea2cf05b9e2a",
+    "cpu": 1,
+    "ram": 100,
+    "hdd": 100,
+    "status": "started",
+    "create_date": "2022-02-09T02:23:10.992Z",
+    "update_date": "2022-02-13T00:39:37.486Z"
+  }
+},
+{
+  "model": "api_vps.vpsmodel",
+  "pk": 2,
+  "fields": {
+    "uid": "18a18ec5-9f6d-4941-a674-54459ce829fa",
+    "cpu": 2,
+    "ram": 200,
+    "hdd": 200,
+    "status": "stopped",
+    "create_date": "2022-02-09T02:23:24.733Z",
+    "update_date": "2022-02-13T00:33:58.664Z"
+  }
+},
+{
+  "model": "api_vps.vpsmodel",
+  "pk": 3,
+  "fields": {
+    "uid": "0afae7d4-1f71-4867-8920-2d28fdf8d157",
+    "cpu": 1,
+    "ram": 100,
+    "hdd": 100,
+    "status": "started",
+    "create_date": "2022-02-09T02:23:33.984Z",
+    "update_date": "2022-02-13T00:34:00.696Z"
+  }
+},
+{
+  "model": "api_vps.vpsmodel",
+  "pk": 4,
+  "fields": {
+    "uid": "b3f72d8c-aefe-425b-ba32-2b9e7a17c0aa",
+    "cpu": 2,
+    "ram": 200,
+    "hdd": 200,
+    "status": "started",
+    "create_date": "2022-02-09T02:23:39.584Z",
+    "update_date": "2022-02-09T02:23:39.584Z"
+  }
+},
+{
+  "model": "api_vps.vpsmodel",
+  "pk": 5,
+  "fields": {
+    "uid": "c0f9532d-7507-4f44-aeec-915afc8f1a5e",
+    "cpu": 3,
+    "ram": 300,
+    "hdd": 300,
+    "status": "started",
+    "create_date": "2022-02-09T02:23:48.469Z",
+    "update_date": "2022-02-09T02:23:48.469Z"
+  }
+},
+{
+  "model": "api_vps.vpsmodel",
+  "pk": 6,
+  "fields": {
+    "uid": "a51c1442-69eb-4bf0-9ad5-4f004eecee4c",
+    "cpu": 3,
+    "ram": 300,
+    "hdd": 300,
+    "status": "started",
+    "create_date": "2022-02-09T02:23:51.298Z",
+    "update_date": "2022-02-09T02:23:51.298Z"
+  }
+},
+{
+  "model": "api_vps.vpsmodel",
+  "pk": 7,
+  "fields": {
+    "uid": "2d7995c2-1c31-46b0-941c-e23d89598300",
+    "cpu": 100,
+    "ram": 100,
+    "hdd": 100,
+    "status": "blocked",
+    "create_date": "2022-02-11T04:14:52.112Z",
+    "update_date": "2022-02-11T04:14:52.112Z"
+  }
+},
+{
+  "model": "api_vps.vpsmodel",
+  "pk": 8,
+  "fields": {
+    "uid": "d98c3f0e-a5de-449f-9591-363411e395ba",
+    "cpu": 100,
+    "ram": 100,
+    "hdd": 100,
+    "status": "blocked",
+    "create_date": "2022-02-12T00:19:29.237Z",
+    "update_date": "2022-02-12T00:19:29.237Z"
+  }
+}
+]
