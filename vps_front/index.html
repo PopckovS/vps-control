@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Сервис управлением VPS</title>
+  </head>
+  <body>
+
+
+    <h3>Взаимодействие с DRF API</h3>
+    <div id="api-1">
+
+      <button v-on:click="getAllVps">Обратиться к API на DRF и получить все обьекты VPS</button>
+      <button v-on:click="clearUp">Скрыть</button>
+
+      <div v-if="seen">
+
+        <ol v-for="vps in vps_list">
+          <h4>Обьект VPS</h4>
+          <li>id  = {{ vps.pk }}</li>
+          <li>uid = {{ vps.uid }}</li>
+          <li>cpu = {{ vps.cpu }}</li>
+          <li>ram = {{ vps.ram }}</li>
+          <li>hdd = {{ vps.hdd }}</li>
+          <li>status = {{ vps.status }}</li>
+
+          <button v-on:click="changeVpsStatus(vps, 'started')">Сменить статус на "started"</button>
+          <button v-on:click="changeVpsStatus(vps, 'blocked')">Сменить статус на "blocked"</button>
+          <button v-on:click="changeVpsStatus(vps, 'stopped')">Сменить статус на "stopped</button>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Форма для создания обьекта VPS -->
+    <form id="create-vps-api-form">
+      <h4>Добавить новый VPS</h4>
+      <label for='cpu'>cpu</label>
+      <input v-model='cpu' id='cpu'>
+
+      <label for='ram'>ram</label>
+      <input v-model='ram' id='ram'>
+
+      <label for='hdd'>hdd</label>
+      <input v-model='hdd' id='hdd'>
+
+      <label for='status'>status</label>
+      <select id='statuses' v-model='current_status'>
+          <option>started</option>
+          <option>blocked</option>
+          <option>started</option>
+      </select>
+    </form>
+
+
+    <h3>Взаимодействие с GraphQL Hasura</h3>
+    <div id="api-2">
+      <button v-on:click="getAllVps">Обратиться к Hasura с помощью GraphQL и получить все обьекты VPS</button>
+      <button v-on:click="clearUp">Скрыть</button>
+
+      <div v-if="seen">
+        <ol v-for="vps in vps_list">
+          <h4>Обьект VPS</h4>
+          <li>id  = {{ vps.id }}</li>
+          <li>uid = {{ vps.uid }}</li>
+          <li>cpu = {{ vps.cpu }}</li>
+          <li>ram = {{ vps.ram }}</li>
+          <li>hdd = {{ vps.hdd }}</li>
+          <li>status = {{ vps.status }}</li>
+
+          <button v-on:click="changeVpsStatus(vps, 'started')">Сменить статус на "started"</button>
+          <button v-on:click="changeVpsStatus(vps, 'blocked')">Сменить статус на "blocked"</button>
+          <button v-on:click="changeVpsStatus(vps, 'stopped')">Сменить статус на "stopped</button>
+        </ol>
+      </div>
+
+    </div>
+
+
+  </body>
+</html>
