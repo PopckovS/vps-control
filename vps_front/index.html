@@ -9,8 +9,32 @@
 
 
     <h3>Взаимодействие с DRF API</h3>
-    <div id="api-1">
+    <!-- Компонент, форма для создания обьекта VPS -->
+    <form id="create-vps-api-form">
+      <h4>Добавить новый VPS</h4>
 
+      <label for='cpu'>cpu</label>
+      <input v-model='cpu' id='cpu'><br>
+
+      <label for='ram'>ram</label>
+      <input v-model='ram' id='ram'><br>
+
+      <label for='hdd'>hdd</label>
+      <input v-model='hdd' id='hdd'><br>
+
+      <label for='status'>status</label>
+      <select id='status' v-model='status'>
+          <option>started</option>
+          <option>blocked</option>
+          <option>stopped</option>
+      </select><br>
+
+      <button v-on:click="AddVps">Добавить обьект VPS</button>
+      <h3 style="color:red">{{ message }}</h3>
+    </form>
+
+    <!-- Компонент, показывает все VPS от API DRF-->
+    <div id="api-1">
       <button v-on:click="getAllVps">Обратиться к API на DRF и получить все обьекты VPS</button>
       <button v-on:click="clearUp">Скрыть</button>
 
@@ -32,28 +56,38 @@
       </div>
     </div>
 
-    <!-- Форма для создания обьекта VPS -->
-    <form id="create-vps-api-form">
-      <h4>Добавить новый VPS</h4>
-      <label for='cpu'>cpu</label>
-      <input v-model='cpu' id='cpu'>
 
-      <label for='ram'>ram</label>
-      <input v-model='ram' id='ram'>
 
-      <label for='hdd'>hdd</label>
-      <input v-model='hdd' id='hdd'>
+    <hr><hr><hr>
 
-      <label for='status'>status</label>
-      <select id='statuses' v-model='current_status'>
-          <option>started</option>
-          <option>blocked</option>
-          <option>started</option>
-      </select>
-    </form>
 
 
     <h3>Взаимодействие с GraphQL Hasura</h3>
+    <!-- Компонент, форма для создания обьекта VPS -->
+    <form id="create-vps-hasura-form">
+      <h4>Добавить новый VPS</h4>
+
+      <label for='cpu'>cpu</label>
+      <input v-model='cpu' id='cpu'><br>
+
+      <label for='ram'>ram</label>
+      <input v-model='ram' id='ram'><br>
+
+      <label for='hdd'>hdd</label>
+      <input v-model='hdd' id='hdd'><br>
+
+      <label for='status'>status</label>
+      <select id='status' v-model='status'>
+          <option>started</option>
+          <option>blocked</option>
+          <option>stopped</option>
+      </select><br>
+
+      <button v-on:click="AddVps">Добавить обьект VPS</button>
+      <h3 style="color:red">{{ message }}</h3>
+    </form>
+
+    <!-- Компонент, показывает все VPS от Hasura -->
     <div id="api-2">
       <button v-on:click="getAllVps">Обратиться к Hasura с помощью GraphQL и получить все обьекты VPS</button>
       <button v-on:click="clearUp">Скрыть</button>
