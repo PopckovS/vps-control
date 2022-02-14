@@ -1,7 +1,7 @@
 version: '3.6'
 services:
 
-    # Django приложение с API внутри
+    # Django приложение с API DRF внутри
     api_vps:
       build:
         context: ./vps
@@ -19,7 +19,7 @@ services:
         - ./vps/.env
 
 
-    # Postgres для Django API
+    # Postgres для Django API DRF
     vps_postgres:
       image: postgres
       container_name: vps_postgres
@@ -32,7 +32,7 @@ services:
         - ./vps_postgres/.env
 
 
-   # Hasura приложение
+   # Hasura приложение для GraphQL
     graphql-engine:
       image: hasura/graphql-engine:v2.1.1
       ports:
@@ -48,7 +48,7 @@ services:
         HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
 
 
-    # Postgres для Hasura приложения
+    # Postgres для хранения мета данных Hasura приложения
     postgres_hasura:
       image: postgres:12
       restart: always
